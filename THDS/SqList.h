@@ -62,6 +62,7 @@ namespace Th {
 			}
 			*q = e;//²åÈëÔªËØ
 			++this->length;
+			return OK;
 		}
 
 

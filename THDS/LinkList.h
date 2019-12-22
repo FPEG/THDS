@@ -9,9 +9,26 @@ namespace Th
 	{
 	public:
 		LinkNode<ElemType>* head, * tail;
-		LinkList(ElemType e) :head(new LinkNode<ElemType>(e)),tail(head)
+		LinkList(ElemType e) :head(new LinkNode<ElemType>(e)), tail(head)
 		{
-
+			this->length = 1;
+		};
+		LinkList(int n, ElemType* arr) :head(nullptr), tail(nullptr)
+		{
+			LinkNode<ElemType>* node = new LinkNode<ElemType>(arr[0]);
+			LinkNode<ElemType>* p = nullptr;
+			head = node;
+			p = head;
+			this->length = 1;
+			
+			for (int i = 1; i < n; i++)
+			{
+				node = new LinkNode<ElemType>(arr[i]);
+				p->next = node;
+				p = p->next;
+				tail = node;
+				++this->length;
+			}
 		};
 		virtual ~LinkList()
 		{
@@ -46,7 +63,7 @@ namespace Th
 		/**
 		 * \brief 返回P指示线性链表L中第i个结点的位置并返回OK,i值不合法时返回ERROR
 		 * \param i 第i个节点（从1开始数）
-		 * \param q 第i个节点的地址（从1开始数）
+		 * \param q 第i个节点的地址（从1开始数），如果i=1则返回指向头节点的新指针
 		 * \return OK;ERROR
 		 */
 		Status LocatePos(const int i, LinkNode<ElemType>*& q)
@@ -80,17 +97,22 @@ namespace Th
 
 		Status ListInsert(int i, ElemType e) override
 		{
-			LinkNode<ElemType>* h = new LinkNode<ElemType>;//用于存放待插入位置的头节点
-			if (!LocatePos(i - 1, h))
-				return ERROR;
-			LinkNode<ElemType>* s = new LinkNode<ElemType>(e);
-			h->InsFirst(s);
-			if (i == 1)//第一个节点插入需要挂接头节点
+			if (List<ElemType>::CheckInput(i))
 			{
-				head = s;
+				LinkNode<ElemType>* h = new LinkNode<ElemType>;//用于存放待插入位置的上一个节点,若i=1，则h为head的上一个节点
+				if (!LocatePos(i - 1, h))
+					return ERROR;
+				LinkNode<ElemType>* s = new LinkNode<ElemType>(e);
+				h->InsFirst(s);
+				//改变第一个节点插入需重置头节点到h.next上
+				if (i == 1)
+				{
+					head = h->next;
+				}
+				++this->length;
+				return OK;
 			}
-			++this->length;
-			return OK;
+			return ERROR;
 		}
 		Status ListTraverse(Status(*visit)(ElemType)) override
 		{
@@ -109,7 +131,24 @@ namespace Th
 		}
 		Status ListDelete(int i, ElemType& e) override
 		{
-			return OK;
+			if (List<ElemType>::CheckInput(i))
+			{
+				LinkNode<ElemType>* h = new LinkNode<ElemType>;//用于存放待删除位置的上一个节点
+				if (!LocatePos(i - 1, h))
+					return ERROR;
+				LinkNode<ElemType>* s = new LinkNode<ElemType>(e);//用于存放被删除位置的节点
+				h->DelFirst(s);
+				//改变第一个节点插入需重置头节点到h.next上
+				if (i == 1)
+				{
+					head = h->next;
+				}
+
+				--this->length;
+				return OK;
+			}
+			return ERROR;
+
 		}
 
 		Status Append(LinkNode<ElemType>* e)

@@ -23,6 +23,13 @@ namespace Th {
 			next = e;
 			return OK;
 		}
+		Status DelFirst(LinkNode*& q)
+		{
+			q = next;
+			next = next->next;
+			//delete q;
+			return OK;
+		}
 		virtual ~LinkNode() = default;
 	};
 }
