@@ -1,6 +1,7 @@
 ﻿#include <iostream>
 #include "SqList.h"
 #include "LinkList.h"
+#include "SqStack.h"
 using namespace Th;
 int main()
 {
@@ -65,4 +66,18 @@ int main()
 	lb.ListDelete(2, temp_1);
 	lb.ListTraverse([](int x) {std::cout << x << " "; return OK; });
 	std::cout << std::endl;
+
+	SqStack<int> stack;
+	stack.Push(1);
+	stack.Push(2);
+	stack.Push(3);
+	stack.Push(4);
+
+	int temp_2 = 0;
+
+	stack.StackTraverse(print);
+	std::cout << std::endl;
+	
+
+	
 }
