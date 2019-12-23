@@ -2,6 +2,7 @@
 #include "SqList.h"
 #include "LinkList.h"
 #include "SqStack.h"
+#include "LinkQueue.h"
 using namespace Th;
 int main()
 {
@@ -78,6 +79,13 @@ int main()
 	stack.StackTraverse(print);
 	std::cout << std::endl;
 	
+	LinkQueue<int>queue;
+	queue.EnQueue(1);
+	queue.EnQueue(2);
+	queue.EnQueue(3);
+	queue.EnQueue(4);
 
+	queue.QueueTraverse(print);
+	std::cout << std::endl;
 	
 }

@@ -59,7 +59,6 @@ namespace Th
 			{
 				if (!visit(temp))
 					return ERROR;
-				
 			}
 			return OK;
 		}

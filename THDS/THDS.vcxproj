@@ -157,6 +157,7 @@
     <ClInclude Include="DuLinkNode.h" />
     <ClInclude Include="LinkList.h" />
     <ClInclude Include="LinkNode.h" />
+    <ClInclude Include="LinkQueue.h" />
     <ClInclude Include="List.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="SqList.h" />
