@@ -6,6 +6,7 @@ namespace Th {
 	class SqList :
 		public List<ElemType>
 	{
+	protected:
 		enum { LIST_INIT_SIZE = 100, LISTINCREMENT = 10 };
 		int listsize;
 	public:

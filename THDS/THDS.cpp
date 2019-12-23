@@ -3,6 +3,7 @@
 #include "LinkList.h"
 #include "SqStack.h"
 #include "LinkQueue.h"
+#include "SqQueue.h"
 using namespace Th;
 int main()
 {
@@ -86,6 +87,16 @@ int main()
 	queue.EnQueue(4);
 
 	queue.QueueTraverse(print);
+	std::cout << std::endl;
+
+	SqQueue<int>queues;
+
+	queues.EnQueue(1);
+	queues.EnQueue(2);
+	queues.EnQueue(3);
+	queues.EnQueue(4);
+
+	queues.QueueTraverse(print);
 	std::cout << std::endl;
 	
 }

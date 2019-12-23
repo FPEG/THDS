@@ -5,8 +5,6 @@ namespace Th
 	template<typename ElemType>
 	class List
 	{
-	protected:
-
 	public:
 		ElemType* elem;
 		int length;

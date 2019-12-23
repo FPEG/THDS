@@ -161,6 +161,7 @@
     <ClInclude Include="List.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="SqList.h" />
+    <ClInclude Include="SqQueue.h" />
     <ClInclude Include="SqStack.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
