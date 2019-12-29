@@ -1,5 +1,6 @@
 #pragma once
-#include "Global.h"
+#include "../GlobalDef.h"
+
 namespace Th
 {
 
@@ -10,6 +11,7 @@ namespace Th
 		int a;
 		const int d = 10;
 	public:
+		int p=2;
 		Base() :a(1)
 		{
 		}
@@ -80,6 +82,12 @@ namespace Th
 		{
 			
 		}
+
+		void show_d()
+		{
+			show_var("BaseSun::show_d", d);
+		}
+		
 	};
 
 	class BaseSun2
@@ -94,5 +102,12 @@ namespace Th
 		{
 			//show_var("BaseSun::c_show_v,c", a);//error C2385: 对“a”的访问不明确
 		}
+
+		void show_d()
+		{
+			show_var("BaseSun::show_d", d);
+		}
+
+		
 	};
 }

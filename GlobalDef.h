@@ -21,3 +21,18 @@ typedef int Status;
 # define LT(a, b) ((a) < (b))
 # define LQ(a, b) ((a) < = (b))
 
+template<typename T>
+void show_var(std::string name, T var, std::string extra = "")
+{
+	std::cout << name << "£º\t";
+	/*if (var != nullptr)
+	{*/
+		std::cout << var;
+	//}
+	if (!extra.empty())
+	{
+		std::cout << "£¬" << extra;
+	}
+	std::cout << std::endl;
+}
+

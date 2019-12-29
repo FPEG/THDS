@@ -10,7 +10,7 @@ void enter();
 
 int main()
 {
-	call(3);
+	call(5);
 
 }
 
@@ -92,8 +92,9 @@ void call(int i)
 	case 5:
 	{
 		Base be;
+		Base be2;
 		BaseSun bs;
-		be = bs;
+		//be = bs;
 		bs.a_show_nov();
 		//bs.a_show_v();
 		bs.a_base_show_nov();
@@ -101,6 +102,10 @@ void call(int i)
 		bp->a_show_v();
 		bp->a_show_nov();
 		bp->c_show_v();
+
+		int Base::* ppp  = &Base::p;
+		//ppp = &be.p;
+		be.*ppp = 5;
 		break;
 	}
 	default:

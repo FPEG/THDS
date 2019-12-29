@@ -2,6 +2,7 @@
 #include "List.h"
 
 namespace Th {
+	
 	template<typename ElemType>
 	class SqList :
 		public List<ElemType>
@@ -15,11 +16,11 @@ namespace Th {
 		{
 
 		}
-		SqList(Status(*compare)(ElemType, ElemType)) :compare(compare)
+		SqList(Status(*compare)(ElemType, ElemType),int length=0) :compare(compare)
 		{
 			//if (! L. elem) exit (OVERFLOW);//古代错误处理
 			this->elem = new ElemType[LIST_INIT_SIZE];
-			this->length = 0;
+			this->length = length;
 			listsize = LIST_INIT_SIZE;
 
 		};
@@ -47,17 +48,24 @@ namespace Th {
 			e = this->elem[i-1];
 			return OK;
 		}
-
+		
+		Status ListReplace(int i, ElemType e)
+		{
+			if (i<1 || i>this->length)
+				return ERROR;
+			this->elem[i - 1] = e;
+			return OK;
+		}
 		/**
 		 * \brief 在顺序线性表L中第i个位置之前插入新的元素e,
-		 i 的合法值为 l<i<List:Length(L) + 1
+		 i 的合法值为 l<=i<=List:Length(L) + 1
 		 * \param i 第i个位置之前插入（从1开始数）
 		 * \param e 新的元素
 		 * \par
 			时间复杂度：O(n)
 		 * \return
 		 */
-		Status ListInsert(int i, ElemType e)
+		virtual Status ListInsert(int i, ElemType e)
 		{
 			if (i<1 || i>this->length + 1)
 				return ERROR;
@@ -91,7 +99,7 @@ namespace Th {
 			时间复杂度：O(n)
 		 * \return
 		 */
-		Status ListDelete(int i, ElemType & e) override
+		virtual Status ListDelete(int i, ElemType & e) override
 		{
 			if (i<1 || i>this->length)
 				return ERROR;
@@ -113,7 +121,7 @@ namespace Th {
 		 * \param compare
 		 * \return
 		 */
-		int LocateElem(ElemType e, Status(*compare)(ElemType, ElemType))
+		virtual int LocateElem(ElemType e, Status(*compare)(ElemType, ElemType))
 		{
 			// i的初值为第1个元素的位序
 			int i = 1;
@@ -275,4 +283,8 @@ namespace Th {
 		}
 
 	};
+
+	/*template<typename ElemType>
+	using SSTable = SqList<ElemType>;*/
+
 }

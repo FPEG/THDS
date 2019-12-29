@@ -4,6 +4,7 @@
 #include "SqStack.h"
 #include "LinkQueue.h"
 #include "SqQueue.h"
+#include "SSTable.h"
 using namespace Th;
 int main()
 {
@@ -105,5 +106,16 @@ int main()
 
 	queues.QueueTraverse(print_int);
 	std::cout << std::endl;
-	
+	auto lt_int = [](int a, int b) {return a < b ? TRUE : FALSE; };
+	auto sst = new SSTable<int>(compare_int, lt_int,0);
+	sst->ListInsert(1, 1);
+	sst->ListInsert(2, 2);
+	sst->ListInsert(3, 7);
+	sst->ListInsert(4, 8);
+	sst->ListInsert(5, 49);
+
+	sst->ListTraverse(print_int);
+	enter();
+	show_var("sst.Search_Bin(1)", sst->Search_Bin(1));
+	enter();
 }

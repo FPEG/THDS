@@ -26,9 +26,6 @@
     <ClInclude Include="CH3.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Global.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="EXAM2015.h">
       <Filter>头文件</Filter>
     </ClInclude>

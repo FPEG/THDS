@@ -157,7 +157,6 @@
     <ClInclude Include="CH3.h" />
     <ClInclude Include="CH5.h" />
     <ClInclude Include="EXAM2015.h" />
-    <ClInclude Include="Global.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
