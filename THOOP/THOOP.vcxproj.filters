@@ -29,5 +29,11 @@
     <ClInclude Include="EXAM2015.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="CH4.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="CH15.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

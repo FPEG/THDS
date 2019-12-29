@@ -11,7 +11,7 @@ namespace Th
 		int a;
 		const int d = 10;
 	public:
-		int p=2;
+		int p = 2;
 		Base() :a(1)
 		{
 		}
@@ -25,7 +25,7 @@ namespace Th
 		}
 		virtual ~Base()
 		{
-
+			std::cout << "爷爷" << std::endl;
 		}
 		void a_show_nov()
 		{
@@ -78,25 +78,51 @@ namespace Th
 			show_var("BaseSun::c_show_v,d", d, "const d 被构造函数二次赋值");
 		}
 
-		friend int friend_( BaseSun & as , const BaseSun& as2 )
+		friend int friend_(BaseSun& as, const BaseSun& as2)
 		{
-			
+
 		}
 
 		void show_d()
 		{
 			show_var("BaseSun::show_d", d);
 		}
-		
+		~BaseSun()
+		{
+			std::cout << "爸爸1" << std::endl;
+
+		}
+
 	};
 
 	class BaseSun2
 	{
 		int a;
+	public:
+		BaseSun2()
+		{
+			std::cout << "爸爸2构造" << std::endl;
+		}
+		~BaseSun2()
+		{
+			std::cout << "爸爸2" << std::endl;
+
+		}
 	};
 
-	class BaseGrandM :
-		public BaseSun, public BaseSun2
+	class BaseSun3
+	{
+		int a;
+	public:
+		
+		~BaseSun3()
+		{
+			std::cout << "爸爸3" << std::endl;
+
+		}
+	};
+
+	class BaseGrandM :public BaseSun,public BaseSun3
 	{
 		void show()
 		{
@@ -107,7 +133,10 @@ namespace Th
 		{
 			show_var("BaseSun::show_d", d);
 		}
-
-		
+	public:
+		~BaseGrandM()
+		{
+			std::cout << "儿子" << std::endl;
+		}
 	};
 }

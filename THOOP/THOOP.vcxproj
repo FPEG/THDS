@@ -154,7 +154,9 @@
     <ClCompile Include="THOOP.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CH15.h" />
     <ClInclude Include="CH3.h" />
+    <ClInclude Include="CH4.h" />
     <ClInclude Include="CH5.h" />
     <ClInclude Include="EXAM2015.h" />
   </ItemGroup>

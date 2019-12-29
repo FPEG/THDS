@@ -6,6 +6,12 @@
 #include "SqQueue.h"
 #include "SSTable.h"
 using namespace Th;
+
+void test()
+{
+	std::cout << "adsd" << std::endl;
+}
+
 int main()
 {
 	Status(*print_int)(int) = [](int x) {std::cout << x << " "; return OK; };
