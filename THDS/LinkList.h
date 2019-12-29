@@ -47,7 +47,7 @@ namespace Th
 		 * \param[out] e 返回元素
 		 * \return OK;ERROR
 		 */
-		Status GetElem(const int i, ElemType& e) override
+		Status GetElem(const int i, ElemType& e) const override
 		{
 			if (List<ElemType>::CheckInput(i))
 			{
@@ -66,7 +66,7 @@ namespace Th
 		 * \param q 第i个节点的地址（从1开始数），如果i=1则返回指向头节点的新指针
 		 * \return OK;ERROR
 		 */
-		Status LocatePos(const int i, LinkNode<ElemType>*& q)
+		Status LocatePos(const int i, LinkNode<ElemType>*& q) const
 		{
 			LinkNode<ElemType>* p = head;//头指针
 			int j = 1;//计数器
@@ -151,6 +151,12 @@ namespace Th
 
 		}
 
+		
+		/**
+		 * \brief 添加元素到末尾
+		 * \param e 插入元素
+		 * \return 
+		 */
 		Status Append(LinkNode<ElemType>* e)
 		{
 			tail->next = e;

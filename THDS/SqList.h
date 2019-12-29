@@ -9,8 +9,13 @@ namespace Th {
 	protected:
 		enum { LIST_INIT_SIZE = 100, LISTINCREMENT = 10 };
 		int listsize;
+		Status(*compare)(ElemType, ElemType);
 	public:
-		SqList()
+		SqList() :SqList(nullptr)
+		{
+
+		}
+		SqList(Status(*compare)(ElemType, ElemType)) :compare(compare)
 		{
 			//if (! L. elem) exit (OVERFLOW);//古代错误处理
 			this->elem = new ElemType[LIST_INIT_SIZE];
@@ -18,17 +23,28 @@ namespace Th {
 			listsize = LIST_INIT_SIZE;
 
 		};
-		virtual ~SqList()= default;
+		virtual ~SqList() = default;
 		Status ClearList() override
 		{
 			return TRUE;
 		}
 
-		Status GetElem(int i, ElemType& e) override
+		/**
+		 * \par 初始条件
+		 * 线性表L已存在,l<=i<=ListLength(L)
+		 * \par 操作结果
+		 * 用e返回L中第i个数据元素的值。
+		 * \brief 当第i个元素存在时，其值赋给e并返回OK,否则返回ERROR
+		 *
+		 * \param i 元素位置(从1开始)
+		 * \param[out] e 返回元素
+		 * \return OK;ERROR
+		 */
+		Status GetElem(int i, ElemType& e) const override
 		{
 			if (i<1 || i>this->length)
 				return ERROR;
-			e = this->elem[i];
+			e = this->elem[i-1];
 			return OK;
 		}
 
@@ -123,18 +139,104 @@ namespace Th {
 			}
 			return OK;
 		}
-		friend SqList operator+(SqList<ElemType> & la, SqList<ElemType> & lb)
+
+
+		/**
+		 * \brief 集合添加
+		 * \param lb
+		 */
+		void operator|=(SqList<ElemType> & lb)
 		{
-			SqList<ElemType> lc;
+			int la_len = this->ListLength();
+			int lb_len = lb.ListLength();
+			ElemType e;
+			for (int i = 1; i < lb_len; i++)
+			{
+				lb.GetElem(i, e);
+				if (!LocateElem(e, compare))
+				{
+					la_len += 1;
+					ListInsert(la_len, e);
+				}
+			}
+		}
+		void operator+=(SqList<ElemType>& lb)
+		{
+			int i = 1;//la上指针位置
+			int j = 1;//lb上指针位置
+			//int la_len = this->ListLength();//这么写要增加表长
+			const int lb_len = lb.ListLength();//表长，不改变
+			ElemType ai, bj;
+			while ((i <= this->ListLength()) && (j <= lb_len))// La 和 Lb 均非空
+			{
+				this->GetElem(i, ai);
+				lb.GetElem(j, bj);
+				if (ai <= bj)
+				{
+					++i;
+				}
+				else
+				{
+					ListInsert(i, bj);
+					//++la_len//如果用局部变量在这里要增加表长//随动
+					++i;//随动
+					++j;//随动
+				}
+			}
+			while (j <= lb_len)
+			{
+				lb.GetElem(j, bj);
+				ListInsert(i, bj);
+				++i;//随动
+				++j;//随动
+			}
+		}
+		friend SqList operator+(const SqList<ElemType> & la, const SqList<ElemType> & lb)
+		{
+			SqList<ElemType> lc(la.compare);
+			int i = 1;//la上指针位置
+			int j = 1;//lb上指针位置
+			int k = 1;//lc插入的位置
+			const int la_len = la.ListLength();//表长，不改变
+			const int lb_len = lb.ListLength();//表长，不改变
+			ElemType ai, bj;
+			while ((i <= la_len) && (j <= lb_len))// La 和 Lb 均非空
+			{
+				la.GetElem(i, ai);
+				lb.GetElem(j, bj);
+				if (ai <= bj)
+				{
+					lc.ListInsert(k, ai);
+					++i;
+				}
+				else
+				{
+					lc.ListInsert(k, bj);
+					++j;
+				}
+				k++;//随动
+			}
+			while (i <= la_len)
+			{
+				la.GetElem(i++, ai);
+				lc.ListInsert(k++, ai);
+			}
+			while (j <= lb_len)
+			{
+				lb.GetElem(j++, bj);
+				lc.ListInsert(k++, bj);
+			}
+
+#ifdef op
 			ElemType* pa = la.elem;//la初始位置指针
 			ElemType* pb = lb.elem;//lb初始位置指针
 			ElemType* pc = lc.elem;//lc初始位置指针
 			ElemType* pa_last = la.elem + la.length - 1;//la末位置指针
 			ElemType* pb_last = lb.elem + lb.length - 1;//lb末位置指针
-			
+
 			while (
-				pa <= pa_last &&//pa没到最后
-				pb <= pb_last//pb没到最后
+				pa <= pa_last &&//pa没迭代到最后
+				pb <= pb_last//pb没迭代到最后
 				)
 			{
 				if (*pa <= *pb)
@@ -168,6 +270,7 @@ namespace Th {
 				++pb;
 				++lc.length;
 			}
+#endif
 			return lc;
 		}
 

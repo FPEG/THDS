@@ -12,7 +12,7 @@ namespace Th
 
 		LinkQueue()
 		{
-			LinkNode<QElemType>* temp = new LinkNode<QElemType>;//占位节点，无内容
+			LinkNode<QElemType>* temp = new LinkNode<QElemType>;//占位节点，无内容//不能用null
 			front = rear = temp;
 			front->next = nullptr;
 		};

@@ -7,45 +7,52 @@
 using namespace Th;
 int main()
 {
-	Status(*print)(int) = [](int x) {std::cout << x << " "; return OK; };
+	Status(*print_int)(int) = [](int x) {std::cout << x << " "; return OK; };
+	auto compare_int = [](int x, int y) {return (x == y) ? TRUE : FALSE; };
+	auto enter = []() {std::cout << std::endl; };
 	
-	SqList<int> sl;
-	sl.ListInsert(1, 2);
-	sl.ListInsert(2, 5);
-	sl.ListInsert(3, 9);
-	sl.ListInsert(4, 11);
-	sl.ListInsert(5, 19);
-	SqList<int> s2;
+	SqList<int> s1(compare_int);
+	s1.ListInsert(1, 2);
+	s1.ListInsert(2, 5);
+	s1.ListInsert(3, 9);
+	s1.ListInsert(4, 11);
+	s1.ListInsert(5, 19);
+	SqList<int> s2(compare_int);
 	s2.ListInsert(1, 3);
 	s2.ListInsert(2, 5);
 	s2.ListInsert(3, 10);
 	s2.ListInsert(4, 12);
 	s2.ListInsert(5, 20);
 	//std::cout << sl.LocateElem(4, [](int x, int y) {return (x == y) ? TRUE : FALSE; });
-	SqList<int> s3 = sl + s2;
-	//s3.ListTraverse([](int x) {std::cout << x << " "; return OK; });
+	SqList<int> s3 = s1 + s2;
+	s2 += s1;
+	s2.ListTraverse(print_int);
+	enter();
+
+	s3.ListTraverse(print_int);
+	enter();
 
 	LinkList<int> la = LinkList<int>(1);
 
 	
 	la.ListInsert(1, 2);
-	la.ListTraverse(print);
-	std::cout << std::endl;
+	la.ListTraverse(print_int);
+	enter();
 	
 	la.ListInsert(2, 3);
-	la.ListTraverse(print);
+	la.ListTraverse(print_int);
 	std::cout << std::endl;
 	
 	la.ListInsert(3, 4);
-	la.ListTraverse(print);
+	la.ListTraverse(print_int);
 	std::cout << std::endl;
 	
 	la.ListInsert(1, 400);
-	la.ListTraverse(print);
+	la.ListTraverse(print_int);
 	std::cout << std::endl;
 
 	la.Append(new LinkNode<int>(999));
-	la.ListTraverse(print);
+	la.ListTraverse(print_int);
 	std::cout << std::endl;
 
 	int temp_1=0;
@@ -77,7 +84,7 @@ int main()
 
 	int temp_2 = 0;
 
-	stack.StackTraverse(print);
+	stack.StackTraverse(print_int);
 	std::cout << std::endl;
 	
 	LinkQueue<int>queue;
@@ -86,7 +93,7 @@ int main()
 	queue.EnQueue(3);
 	queue.EnQueue(4);
 
-	queue.QueueTraverse(print);
+	queue.QueueTraverse(print_int);
 	std::cout << std::endl;
 
 	SqQueue<int>queues;
@@ -96,7 +103,7 @@ int main()
 	queues.EnQueue(3);
 	queues.EnQueue(4);
 
-	queues.QueueTraverse(print);
+	queues.QueueTraverse(print_int);
 	std::cout << std::endl;
 	
 }

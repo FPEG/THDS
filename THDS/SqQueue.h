@@ -8,7 +8,7 @@ namespace Th {
 	{
 		
 		int front;//头指针，若队列不空，指向队列头元素
-		int rear;//尾指针，若队列不空，指向队列尾元素的下一个位置
+		int rear;//尾指针，若队列不空，指向队列尾元素的*下一个位置*//插入位置
 	public:
 		SqQueue():SqList<QElemType>()
 		{
@@ -19,20 +19,26 @@ namespace Th {
 			
 		};
 		
-		int QueueLength()
+		int QueueLength() const
 		{
 			return (rear - front + MAXQSIZE) % MAXQSIZE;
 		}
 
-		Status QueueEmpty()
+		Status QueueEmpty() const
 		{
-			if (front == rear)return TRUE;
+			if (front == rear)
+			{
+				return TRUE;
+			}
 			return ERROR;
 		}
 		
-		Status QueueFull()
+		Status QueueFull() const
 		{
-			if ((rear + 1) % MAXQSIZE == front)return TRUE;
+			if (front == (rear + 1) % MAXQSIZE)//尾节点的前面一个是头节点
+			{
+				return TRUE;
+			}
 			return ERROR;
 		}
 		
